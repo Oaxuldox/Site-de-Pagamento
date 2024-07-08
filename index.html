@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="icon" type="image/png" sizes="32x32" href="./assets/images/favicon-32x32.png">
+  
+  <title>Frontend Mentor | Mortgage Repayment Calculator</title>
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 20px;
+      background-color: #f4f4f4;
+    }
+    .container {
+      max-width: 600px;
+      margin: 0 auto;
+      background: #fff;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+    h1 {
+      text-align: center;
+      color: #333;
+    }
+    label {
+      display: block;
+      margin: 15px 0 5px;
+    }
+    input, select, button {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+    button {
+      background-color: #28a745;
+      color: #fff;
+      border: none;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #218838;
+    }
+    .results {
+      margin-top: 20px;
+      padding: 20px;
+      background: #e9ecef;
+      border-radius: 10px;
+    }
+    .attribution {
+      font-size: 11px;
+      text-align: center;
+      margin-top: 20px;
+    }
+    .attribution a {
+      color: hsl(228, 45%, 44%);
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h1>Mortgage Calculator</h1>
+    <button id="clearButton">Clear All</button>
+
+    <label for="amount">Mortgage Amount</label>
+    <input type="number" id="amount" placeholder="Enter amount" />
+
+    <label for="term">Mortgage Term (years)</label>
+    <input type="number" id="term" placeholder="Enter term" />
+
+    <label for="rate">Interest Rate (%)</label>
+    <input type="number" id="rate" step="0.01" placeholder="Enter rate" />
+
+    <label for="type">Mortgage Type</label>
+    <select id="type">
+      <option value="repayment">Repayment</option>
+      <option value="interest-only">Interest Only</option>
+    </select>
+
+    <button id="calculateButton">Calculate Repayments</button>
+
+    <div class="results" id="results">
+      <p>Complete the form and click “calculate repayments” to see what your monthly repayments would be.</p>
+    </div>
+  </div>
+
+  <div class="attribution">
+    Challenge by <a href="https://www.frontendmentor.io?ref=challenge">Frontend Mentor</a>. 
+    Coded by <a href="#">Rafael Marjoub</a>.
+  </div>
+
+  <script>
+    document.getElementById('calculateButton').addEventListener('click', function() {
+      var amount = document.getElementById('amount').value;
+      var term = document.getElementById('term').value;
+      var rate = document.getElementById('rate').value;
+      var type = document.getElementById('type').value;
+
+      if (amount && term && rate) {
+        var monthlyRate = (rate / 100) / 12;
+        var numberOfPayments = term * 12;
+        var monthlyRepayment;
+
+        if (type === 'repayment') {
+          monthlyRepayment = (amount * monthlyRate) / (1 - Math.pow(1 + monthlyRate, -numberOfPayments));
+        } else if (type === 'interest-only') {
+          monthlyRepayment = (amount * monthlyRate);
+        }
+
+        var totalRepayment = monthlyRepayment * numberOfPayments;
+
+        document.getElementById('results').innerHTML = `
+          <h2>Your results</h2>
+          <p>Your results are shown below based on the information you provided. 
+          To adjust the results, edit the form and click “calculate repayments” again.</p>
+          <p><strong>Your monthly repayments:</strong> $${monthlyRepayment.toFixed(2)}</p>
+          <p><strong>Total you'll repay over the term:</strong> $${totalRepayment.toFixed(2)}</p>
+        `;
+      } else {
+        document.getElementById('results').innerHTML = `
+          <p>Please complete all fields to see the results.</p>
+        `;
+      }
+    });
+
+    document.getElementById('clearButton').addEventListener('click', function() {
+      document.getElementById('amount').value = '';
+      document.getElementById('term').value = '';
+      document.getElementById('rate').value = '';
+      document.getElementById('type').value = 'repayment';
+      document.getElementById('results').innerHTML = `
+        <p>Complete the form and click “calculate repayments” to see what your monthly repayments would be.</p>
+      `;
+    });
+  </script>
+</body>
+</html>
