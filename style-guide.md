@@ -59,26 +59,7 @@
     <h1>Mortgage Calculator</h1>
     <button id="clearButton">Clear All</button>
 
-    <label for="amount">Mortgage Amount</label>
-    <input type="number" id="amount" placeholder="Enter amount" />
-
-    <label for="term">Mortgage Term (years)</label>
-    <input type="number" id="term" placeholder="Enter term" />
-
-    <label for="rate">Interest Rate (%)</label>
-    <input type="number" id="rate" step="0.01" placeholder="Enter rate" />
-
-    <label for="type">Mortgage Type</label>
-    <select id="type">
-      <option value="repayment">Repayment</option>
-      <option value="interest-only">Interest Only</option>
-    </select>
-
-    <button id="calculateButton">Calculate Repayments</button>
-
-    <div class="results" id="results">
-      <p>Complete the form and click “calculate repayments” to see what your monthly repayments would be.</p>
-    </div>
+  
   </div>
 
   <div class="attribution">
